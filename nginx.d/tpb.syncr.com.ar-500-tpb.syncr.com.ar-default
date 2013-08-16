@@ -1,0 +1,5 @@
+  location / {
+    root  /var/www/;
+    try_files  $uri  $uri/  /index.php?$args ;
+    index  index.html index.htm index.php; 
+  }
