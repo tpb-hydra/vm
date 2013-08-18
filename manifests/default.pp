@@ -38,13 +38,25 @@ package { [
     'curl',
     'git-core',
     'htop',
-    'varnish'
   ]:
   ensure  => 'installed',
 }
 
+
+include 'varnish'
+
 class { 'nginx': }
 
+file { ['/var/www', '/var/www/current', '/var/www/current/web']:
+    ensure => directory,
+    force => true
+}
+
+file { 'index.php':
+    path => '/var/www/current/web/index.php',
+    ensure => present,
+    content => 'It\'s working!'
+}
 
 nginx::resource::vhost { 'tpb.syncr.com.ar':
   ensure       => present,
@@ -154,6 +166,5 @@ puphpet::ini { 'custom':
   notify  => Service['php5-fpm'],
   require => Class['php'],
 }
-
 
 

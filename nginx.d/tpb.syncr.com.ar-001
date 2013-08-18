@@ -1,8 +1,0 @@
-server {
-  listen                *:8080 ;
-  
-  server_name           tpb.syncr.com.ar;
-  access_log            /var/log/nginx/tpb.syncr.com.ar.access.log;
-    
-  
-  
