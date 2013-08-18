@@ -2,9 +2,8 @@ Vagrant.configure("2") do |config|
   config.vm.box = "squeeze32"
   config.vm.box_url = "http://mathie-vagrant-boxes.s3.amazonaws.com/debian_squeeze_32.box"
 
-  config.vm.network :private_network, ip: "192.168.56.101"
-    config.vm.network :forwarded_port, guest: 80, host: 1337
-    config.ssh.forward_agent = true
+  config.vm.network :forwarded_port, guest: 80, host: 1337
+  config.ssh.forward_agent = true
 
   config.vm.provider :virtualbox do |v|
     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
@@ -12,8 +11,7 @@ Vagrant.configure("2") do |config|
     v.customize ["modifyvm", :id, "--name", "tpb"]
   end
 
-  
-  config.vm.synced_folder "./", "/tmp/", id: "vagrant-root" 
+  config.vm.synced_folder "./share/", "/vagrant/", id: "vagrant-root" 
   config.vm.provision :shell, :inline => "sudo apt-get update"
 
   config.vm.provision :puppet do |puppet|
