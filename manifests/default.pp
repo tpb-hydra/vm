@@ -47,13 +47,19 @@ include 'varnish'
 
 class { 'nginx': }
 
-file { ['/var/www', '/var/www/current', '/var/www/current/web']:
+file { ['/var/www/', '/var/www/web/']:
     ensure => directory,
     force => true
 }
 
+file { ['current']:
+    path => '/var/www/current',
+    target => '/var/www/',
+    ensure => link,
+}
+
 file { 'index.php':
-    path => '/var/www/current/web/index.php',
+    path => '/var/www/web/index.php',
     ensure => present,
     content => 'It\'s working!'
 }
